@@ -1,9 +1,13 @@
+package Algoritmos;
+import Controller.Crypto;
+import Controller.Funciones;
+
 public class Vigenere
 {
 	static boolean debug = false;
 	public static String code(String k, String m)
 	{
-		return code(Crypto.numerar(k),Crypto.numerar(m));
+		return code(Funciones.numerar(k),Funciones.numerar(m));
 	}
 	public static String code(int[] k, int[]m)
 	{
@@ -21,11 +25,11 @@ public class Vigenere
 		c[i]=-1;//espacio
 		}
 		}
-		return Crypto.parse(c);
+		return Funciones.parse(c);
 	}
 	public static String decode(String k, String m)
 	{
-		return decode(Crypto.numerar(k),Crypto.numerar(m));
+		return decode(Funciones.numerar(k),Funciones.numerar(m));
 	}
 	public static String decode(int[] k, int[]m)
 	{
@@ -41,7 +45,7 @@ public class Vigenere
 		d[i] = -1;//espacio
 		}
 		}
-		return Crypto.parse(d);
+		return Funciones.parse(d);
 	}
 }
 

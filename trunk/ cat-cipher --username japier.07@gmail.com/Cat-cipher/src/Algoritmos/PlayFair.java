@@ -1,26 +1,30 @@
+package Algoritmos;
+import Controller.Crypto;
+import Controller.Funciones;
+
 public class PlayFair
 {
 	static boolean debug = true;
 
 	public static String code(String k, String m)
 	{
-		return code(k,Crypto.numerar(m));
+		return code(k,Funciones.numerar(m));
 	}
 	public static String code(String k, int[]m)
 	{
 		int[][] key = getKeyMatrix(k);
 		int[]c = applyRules(key,m);
-		return Crypto.parse(c);
+		return Funciones.parse(c);
 	}
 	public static String decode(String k, String m)
 	{
-		return decode(k,Crypto.numerar(m));
+		return decode(k,Funciones.numerar(m));
 	}
 	public static String decode(String k, int[]m)
 	{
 		int[][] key = getKeyMatrix(k);
 		int[]c = applyDeRules(key,m);
-		return Crypto.parse(c);
+		return Funciones.parse(c);
 	}
 
 	public static int[] applyRules(int[][] k, int[] m)
@@ -35,7 +39,7 @@ public class PlayFair
 	private static int[][] getKeyMatrix(String keyString)
 	{
 		int[][] key = new int[5][5];
-		int[] knum = Crypto.numerar(keyString.replace("i","j"));
+		int[] knum = Funciones.numerar(keyString.replace("i","j"));
 		int letra = 0;
 		int letraknum = 0;
 		int letraK = 0;

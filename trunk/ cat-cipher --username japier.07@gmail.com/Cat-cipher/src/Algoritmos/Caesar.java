@@ -1,3 +1,7 @@
+package Algoritmos;
+import Controller.Crypto;
+import Controller.Funciones;
+
 public class Caesar{
 	static boolean debug = false;
 
@@ -6,7 +10,7 @@ public class Caesar{
 		try
 		{
 		int key = Integer.parseInt(k);
-		return code(key,Crypto.numerar(m));
+		return code(key,Funciones.numerar(m));
 		}
 		catch(Exception e)
 		{
@@ -17,7 +21,7 @@ public class Caesar{
 	public static String code(int k, int[] m)
 	{
 		int[] c = codeNum(k,m);
-		return Crypto.parse(c);
+		return Funciones.parse(c);
 	}
 
 	public static String decode(String k, String m)
@@ -25,7 +29,7 @@ public class Caesar{
 		try
 		{
 		int key = Integer.parseInt(k);
-		return decode(key,Crypto.numerar(m));
+		return decode(key,Funciones.numerar(m));
 		}
 		catch(Exception e)
 		{
@@ -37,7 +41,7 @@ public class Caesar{
 	public static String decode(int k, int[] m)
 	{
 		int[] d = decodeNum(k,m);
-		return Crypto.parse(d);
+		return Funciones.parse(d);
 	}
 
 	private static int[] codeNum(int k, int[] m)
