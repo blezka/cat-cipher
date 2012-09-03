@@ -10,7 +10,7 @@ import Interfaz.FramePrincipal;
 public class Crypto
 {
 	static boolean debug = false;
-
+	public static boolean sentido = true;
 	public static void main(String... args)
 	{
 		boolean kset = false;

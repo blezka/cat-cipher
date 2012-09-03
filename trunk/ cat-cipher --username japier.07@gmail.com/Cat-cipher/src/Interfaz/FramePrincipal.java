@@ -3,19 +3,29 @@ package Interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class FramePrincipal {
+import Controller.Crypto;
+import Controller.Funciones;
+
+public class FramePrincipal implements ActionListener{
 	private JFrame frame;
 	private JLabel banner;
 	private JTextField llaveText;
+	private JTextArea textoEncript, textoDecript;
+	private JButton invertir;
 	public FramePrincipal() {
 		frame = new JFrame();
-		frame.setSize(new Dimension(400, 300));
+		frame.setSize(new Dimension(400, 350));
 		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		banner = new JLabel();
@@ -23,19 +33,78 @@ public class FramePrincipal {
 		banner.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		JLabel panelLlave = new JLabel();
-		panelLlave.setPreferredSize(new Dimension(390, 50));
+		panelLlave.setPreferredSize(new Dimension(390, 35));
 		panelLlave.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		JLabel llave = new JLabel("Llave:");
 		llaveText = new JTextField();
-		llaveText.setPreferredSize(new Dimension(120, 30));
+		llaveText.setPreferredSize(new Dimension(150, 30));
+		JButton convertir = new JButton("Resolver");
+		convertir.addActionListener(this);
+		convertir.setActionCommand("convert");
+		
 		panelLlave.add(llave);
 		panelLlave.add(llaveText);
+		panelLlave.add(convertir);
 		
+		JLabel panelNames = new JLabel();
+		panelNames.setPreferredSize(new Dimension(390,52));
+		panelNames.setLayout(new FlowLayout());
+		
+		JLabel enconde = new JLabel("Texto plano:");
+		enconde.setPreferredSize(new Dimension(100, 30));
+		invertir = new JButton();
+		invertir.setActionCommand("inver");
+		
+		invertir.addActionListener(this);
+		invertir.setBorderPainted(false);
+		invertir.setContentAreaFilled(false);
+		pintarBordes();
+		
+		JLabel deconde = new JLabel("Texto encriptado:");
+		deconde.setPreferredSize(new Dimension(100, 30));
+		panelNames.add(enconde);
+		panelNames.add(invertir);
+		panelNames.add(deconde);
+		
+		JLabel panelTextos = new JLabel();
+		panelTextos.setPreferredSize(new Dimension(390, 170));
+		panelTextos.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		textoDecript = new JTextArea();
+		textoEncript = new JTextArea();
+		textoDecript.setPreferredSize(new Dimension(150, 130));
+		textoDecript.setBorder(BorderFactory.createLineBorder(Color.black));
+		textoEncript.setPreferredSize(new Dimension(150, 130));
+		textoEncript.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelTextos.add(textoDecript);
+		panelTextos.add(textoEncript);
 		
 		frame.getContentPane().add(banner);
 		frame.getContentPane().add(panelLlave);
+		frame.getContentPane().add(panelNames);
+		frame.getContentPane().add(panelTextos);
 		frame.setResizable(false);
 		frame.setVisible(true);
+	}
+	private void pintarBordes() {
+		if(Crypto.sentido)
+		{
+			invertir.setIcon(new ImageIcon("imagenes/derecha.png"));
+		}
+		else
+		{
+			invertir.setIcon(new ImageIcon("imagenes/izquierda.png"));
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String action = e.getActionCommand();
+		if(action.equals("inver"))
+		{
+			Crypto.sentido=!Crypto.sentido;
+			pintarBordes();
+		}
 	}
 }
