@@ -35,4 +35,13 @@ public class Funciones {
 		}
 		return mensaje;
 	}
+
+	public static int sumarKey(int[] numerar) {
+		int ret=0;
+		for(int i : numerar)
+		{
+			ret+=i;
+		}
+		return ret;
+	}
 }

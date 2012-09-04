@@ -11,8 +11,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
 
 import Controller.Crypto;
 import Controller.Funciones;
@@ -23,8 +32,10 @@ public class FramePrincipal implements ActionListener{
 	private JTextField llaveText;
 	private JTextArea textoEncript, textoDecript;
 	private JButton invertir;
-	public FramePrincipal() {
-		frame = new JFrame();
+	private Crypto cp;
+	public FramePrincipal(Crypto cp) {
+		this.cp=cp;
+		frame = new JFrame("Cat-Cipher 1.0");
 		frame.setSize(new Dimension(400, 350));
 		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
 		
@@ -39,6 +50,7 @@ public class FramePrincipal implements ActionListener{
 		JLabel llave = new JLabel("Llave:");
 		llaveText = new JTextField();
 		llaveText.setPreferredSize(new Dimension(150, 30));
+		llaveText.setDocument(new Permitidos());
 		JButton convertir = new JButton("Resolver");
 		convertir.addActionListener(this);
 		convertir.setActionCommand("convert");
@@ -71,14 +83,26 @@ public class FramePrincipal implements ActionListener{
 		panelTextos.setPreferredSize(new Dimension(390, 170));
 		panelTextos.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		textoDecript = new JTextArea();
-		textoEncript = new JTextArea();
-		textoDecript.setPreferredSize(new Dimension(150, 130));
+		textoDecript = new JTextArea(10, 9);
+		JScrollPane scroll = new JScrollPane();
+		scroll.setViewportView(textoDecript);
+		textoDecript.setLineWrap(true);
 		textoDecript.setBorder(BorderFactory.createLineBorder(Color.black));
-		textoEncript.setPreferredSize(new Dimension(150, 130));
+		textoDecript.setDocument(new Permitidos());
+		
+		
+		textoEncript = new JTextArea(10, 9);
+		JScrollPane scroll1 = new JScrollPane();
+		scroll1.setViewportView(textoEncript);
+		textoEncript.setLineWrap(true);
 		textoEncript.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelTextos.add(textoDecript);
-		panelTextos.add(textoEncript);
+		textoEncript.setDocument(new Permitidos());
+		
+		scroll.setPreferredSize(new Dimension(180, 140));
+		scroll1.setPreferredSize(new Dimension(180, 140));
+		
+		panelTextos.add(scroll1);
+		panelTextos.add(scroll);
 		
 		frame.getContentPane().add(banner);
 		frame.getContentPane().add(panelLlave);
@@ -105,6 +129,19 @@ public class FramePrincipal implements ActionListener{
 		{
 			Crypto.sentido=!Crypto.sentido;
 			pintarBordes();
+		}
+		else if(action.equals("convert"))
+		{
+			if(Crypto.sentido)
+			{
+				textoDecript.setText(cp.encodecode(0, llaveText.getText(), textoEncript.getText()));
+			}
+			else 
+			{
+				textoEncript.setText(cp.encodecode(1, llaveText.getText(), textoDecript.getText()));
+			}
+			
+			System.out.println("Texto");
 		}
 	}
 }

@@ -11,7 +11,40 @@ public class Crypto
 {
 	static boolean debug = false;
 	public static boolean sentido = true;
+	private FramePrincipal fp;
 	public static void main(String... args)
+	{
+		new Crypto();
+		
+	}
+	public Crypto()
+	{
+		fp = new FramePrincipal(this);
+		
+	}
+	public String encodecode(Object ... args)
+	{
+		int index = (Integer)args[0];
+		if(index==0)
+		{
+			int key = Funciones.sumarKey(Funciones.numerar(((String)args[1])));
+			String mensaje = (String)args[2];
+			String deco = Caesar.code(key, Funciones.numerar(mensaje));
+			System.out.println(deco);
+			return deco;
+		}
+		else if(index==1)
+		{
+			int key = Funciones.sumarKey(Funciones.numerar(((String)args[1])));
+			String mensaje = (String)args[2];
+			String deco = Caesar.decode(key, Funciones.numerar(mensaje));
+			System.out.println(deco);
+			return deco;
+		}
+		else
+			return "null";
+	}
+	public void otro(String ... args)
 	{
 		boolean kset = false;
 		boolean methodset = false;
@@ -93,6 +126,5 @@ public class Crypto
 				break;
 				
 		}
-		new FramePrincipal();
 	}
 }
