@@ -83,7 +83,7 @@ public class FramePrincipal implements ActionListener{
 		panelTextos.setPreferredSize(new Dimension(390, 170));
 		panelTextos.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		textoDecript = new JTextArea(10, 9);
+		textoDecript = new JTextArea(8, 10);
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(textoDecript);
 		textoDecript.setLineWrap(true);
@@ -91,7 +91,7 @@ public class FramePrincipal implements ActionListener{
 		textoDecript.setDocument(new Permitidos());
 		
 		
-		textoEncript = new JTextArea(10, 9);
+		textoEncript = new JTextArea(8, 10);
 		JScrollPane scroll1 = new JScrollPane();
 		scroll1.setViewportView(textoEncript);
 		textoEncript.setLineWrap(true);
@@ -109,6 +109,7 @@ public class FramePrincipal implements ActionListener{
 		frame.getContentPane().add(panelNames);
 		frame.getContentPane().add(panelTextos);
 		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 	private void pintarBordes() {
