@@ -135,7 +135,7 @@ public class FramePrincipal implements ActionListener{
 		{
 			if(Crypto.sentido)
 			{
-				textoDecript.setText(cp.encodecode(0, llaveText.getText(), textoEncript.getText()));
+				textoDecript.setText(cp.encodecode(2, llaveText.getText(), textoEncript.getText()));
 			}
 			else 
 			{

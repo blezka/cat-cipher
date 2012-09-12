@@ -12,6 +12,7 @@ public class Crypto
 {
 	static boolean debug = false;
 	public static boolean sentido = true;
+	public static int AlfabetoNumber=26;
 	private FramePrincipal fp;
 	public static void main(String... args)
 	{
@@ -45,8 +46,7 @@ public class Crypto
 		else if(index==2)
 		{
 			String mensaje= (String)args[2];
-			String deco = HillCipher.Encode(Funciones.numerar(((String)args[1])), mensaje);
-			return "hi";
+			return HillCipher.Encode(Funciones.numerar(((String)args[1])), mensaje);
 		}
 		else
 			return "null";
