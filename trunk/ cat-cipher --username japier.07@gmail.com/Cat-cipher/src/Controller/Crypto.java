@@ -2,6 +2,7 @@ package Controller;
 import java.awt.Frame;
 
 import Algoritmos.Caesar;
+import Algoritmos.HillCipher;
 import Algoritmos.PlayFair;
 import Algoritmos.Vigenere;
 import Interfaz.FramePrincipal;
@@ -40,6 +41,12 @@ public class Crypto
 			String deco = Caesar.decode(key, Funciones.numerar(mensaje));
 			System.out.println(deco);
 			return deco;
+		}
+		else if(index==2)
+		{
+			String mensaje= (String)args[2];
+			String deco = HillCipher.Encode(Funciones.numerar(((String)args[1])), mensaje);
+			return "hi";
 		}
 		else
 			return "null";
