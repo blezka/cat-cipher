@@ -1,5 +1,4 @@
 package Algoritmos;
-import Controller.Crypto;
 import Controller.Funciones;
 
 public class Caesar{
@@ -9,12 +8,12 @@ public class Caesar{
 	{
 		try
 		{
-		int key = Integer.parseInt(k);
-		return code(key,Funciones.numerar(m));
+			int key = Integer.parseInt(k);
+			return code(key,Funciones.numerar(m));
 		}
 		catch(Exception e)
 		{
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "";
 	}
@@ -28,16 +27,16 @@ public class Caesar{
 	{
 		try
 		{
-		int key = Integer.parseInt(k);
-		return decode(key,Funciones.numerar(m));
+			int key = Integer.parseInt(k);
+			return decode(key,Funciones.numerar(m));
 		}
 		catch(Exception e)
 		{
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "";
 	}
-	
+
 	public static String decode(int k, int[] m)
 	{
 		int[] d = decodeNum(k,m);
