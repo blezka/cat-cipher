@@ -17,7 +17,7 @@ public class HillCipher {
 				j=0;
 		}
 		int tama = (mensaje.length())%3;
-		for(i=2; i<3; i++)
+		for(i=tama; i<3; i++)
 		{
 			mensaje+="x";
 		}
