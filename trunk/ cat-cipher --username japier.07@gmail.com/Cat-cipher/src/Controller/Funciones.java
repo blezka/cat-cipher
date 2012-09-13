@@ -35,7 +35,27 @@ public class Funciones {
 		}
 		return mensaje;
 	}
-
+	public static int getModulo(int i)
+	{
+		if(i>=0)
+			return i%Crypto.AlfabetoNumber;
+		else
+		{
+			boolean listo=false;
+			int j=0;
+			int det=0;
+			while(!listo)
+			{
+				j++;
+				if(i>((Crypto.AlfabetoNumber*j)*-1))
+				{
+					det = (Crypto.AlfabetoNumber*j)+i;
+					listo=true;
+				}
+			}
+			return det;
+		}
+	}
 	public static int sumarKey(int[] numerar) {
 		int ret=0;
 		for(int i : numerar)

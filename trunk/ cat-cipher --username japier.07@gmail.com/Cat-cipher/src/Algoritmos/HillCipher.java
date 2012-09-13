@@ -7,7 +7,8 @@ public class HillCipher {
 	static int[][] keyMatrix = new int[3][3];
 	public static String Encode(int[] key, String mensaje)
 	{
-		int i=0,j=0;
+		int i=0,j=0, h=-1;
+		int determinante=0;
 		while(i!=9)
 		{
 			keyMatrix[i/3][i%3]=key[j];
@@ -16,6 +17,18 @@ public class HillCipher {
 			if(j==key.length)
 				j=0;
 		}
+		do
+		{
+			if(h!=-1)
+			{
+				keyMatrix[(h/3)%3][h%3]=(keyMatrix[(h/3)%3][h%3]+1)%Crypto.AlfabetoNumber;
+//				keyMatrix[h][1]=(keyMatrix[h][1]+1)%Crypto.AlfabetoNumber;
+//				keyMatrix[h][2]=(keyMatrix[h][2]+1)%Crypto.AlfabetoNumber;
+			}
+			determinante=calcularDeterminante(0);
+			//h = (h+1)%3;
+			h++;
+		}while(determinante==0||determinante==2||determinante==13||determinante==26||determinante<0);
 		int tama = (mensaje.length())%3;
 		for(i=tama; i<3; i++)
 		{
@@ -38,7 +51,7 @@ public class HillCipher {
 		if(index==0)
 		{
 			for(int i=0; i<3; i++)
-				ret[i]=(((Integer)ob[1])*keyMatrix[i][0]+(Integer)ob[2]*keyMatrix[i][1]+(Integer)ob[3]*keyMatrix[i][2])%Crypto.AlfabetoNumber;
+				ret[i]=(((Integer)ob[1])*keyMatrix[0][i]+(Integer)ob[2]*keyMatrix[1][i]+(Integer)ob[3]*keyMatrix[2][i])%Crypto.AlfabetoNumber;
 		}
 		return ret;
 	}
@@ -51,6 +64,7 @@ public class HillCipher {
 			det = (keyMatrix[0][0]*(keyMatrix[1][1]*keyMatrix[2][2]-keyMatrix[2][1]*keyMatrix[1][2])-
 					keyMatrix[0][1]*(keyMatrix[0][1]*keyMatrix[2][2]-keyMatrix[0][2]*keyMatrix[2][1])+
 					keyMatrix[0][2]*(keyMatrix[0][1]*keyMatrix[1][2]-keyMatrix[0][2]*keyMatrix[1][1]));
+			det = Funciones.getModulo(det);
 		}
 		return det;
 	}
