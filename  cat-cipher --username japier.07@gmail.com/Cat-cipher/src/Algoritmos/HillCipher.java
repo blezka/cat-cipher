@@ -17,7 +17,7 @@ public class HillCipher {
 				j=0;
 		}
 		int tama = (mensaje.length())%3;
-		for(i=0; i<=tama; i++)
+		for(i=2; i<3; i++)
 		{
 			mensaje+="x";
 		}
@@ -48,7 +48,9 @@ public class HillCipher {
 		int index = (Integer)ob[0];
 		if(index==0)
 		{
-			
+			det = (keyMatrix[0][0]*(keyMatrix[1][1]*keyMatrix[2][2]-keyMatrix[2][1]*keyMatrix[1][2])-
+					keyMatrix[0][1]*(keyMatrix[0][1]*keyMatrix[2][2]-keyMatrix[0][2]*keyMatrix[2][1])+
+					keyMatrix[0][2]*(keyMatrix[0][1]*keyMatrix[1][2]-keyMatrix[0][2]*keyMatrix[1][1]));
 		}
 		return det;
 	}

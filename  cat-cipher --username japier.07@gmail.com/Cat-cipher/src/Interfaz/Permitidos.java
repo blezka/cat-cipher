@@ -12,7 +12,7 @@ public class Permitidos extends PlainDocument{
 		String ret="";
 		for(Character c : arg1.toCharArray())
 		{
-			if(Character.isLetter(c) || Character.isSpaceChar(c))
+			if(Character.isLetter(c))
 			{
 				ret+=c;
 			}
