@@ -1,5 +1,4 @@
 package Algoritmos;
-import Controller.Crypto;
 import Controller.Funciones;
 
 public class Vigenere

@@ -1,6 +1,4 @@
 package Controller;
-import java.awt.Frame;
-
 import Algoritmos.Caesar;
 import Algoritmos.HillCipher;
 import Algoritmos.PlayFair;
@@ -21,15 +19,15 @@ public class Crypto
 	}
 	public Crypto()
 	{
-		fp = new FramePrincipal(this);
-		
+		fp = new FramePrincipal(this);		
 	}
 	public String encodecode(Object ... args)
 	{
 		int index = (Integer)args[0];
+		int[] llave  = Funciones.numerar(((String)args[1]));
 		if(index==0)
 		{
-			int key = Funciones.sumarKey(Funciones.numerar(((String)args[1])));
+			int key = Funciones.sumarKey(llave);
 			String mensaje = (String)args[2];
 			String deco = Caesar.code(key, Funciones.numerar(mensaje));
 			System.out.println(deco);
@@ -37,7 +35,7 @@ public class Crypto
 		}
 		else if(index==1)
 		{
-			int key = Funciones.sumarKey(Funciones.numerar(((String)args[1])));
+			int key = Funciones.sumarKey(llave);
 			String mensaje = (String)args[2];
 			String deco = Caesar.decode(key, Funciones.numerar(mensaje));
 			System.out.println(deco);
@@ -46,7 +44,8 @@ public class Crypto
 		else if(index==2)
 		{
 			String mensaje= (String)args[2];
-			return HillCipher.Encode(Funciones.numerar(((String)args[1])), mensaje);
+			return HillCipher.Encode(llave, mensaje);
+//			return PlayFair.code((String)args[1], mensaje);
 		}
 		else
 			return "null";
