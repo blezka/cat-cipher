@@ -15,37 +15,53 @@ public class Crypto
 	public static void main(String... args)
 	{
 		new Crypto();
-		
+
 	}
 	public Crypto()
 	{
-		fp = new FramePrincipal(this);		
+		fp = new FramePrincipal(this);
 	}
 	public String encodecode(Object ... args)
 	{
 		int index = (Integer)args[0];
 		int[] llave  = Funciones.numerar(((String)args[1]));
-		if(index==0)
+		String mensaje = (String)args[2];
+		//		if(index==0)
+		//		{
+		//			int key = Funciones.sumarKey(llave);
+		//			String mensaje = (String)args[2];
+		//			String deco = Caesar.code(key, Funciones.numerar(mensaje));
+		//			System.out.println(deco);
+		//			return deco;
+		//		}
+		//		else
+		if(index==1)
 		{
 			int key = Funciones.sumarKey(llave);
-			String mensaje = (String)args[2];
-			String deco = Caesar.code(key, Funciones.numerar(mensaje));
-			System.out.println(deco);
-			return deco;
-		}
-		else if(index==1)
-		{
-			int key = Funciones.sumarKey(llave);
-			String mensaje = (String)args[2];
-			String deco = Caesar.decode(key, Funciones.numerar(mensaje));
-			System.out.println(deco);
-			return deco;
+			//Caesar
+			String code = Caesar.decode(key, Funciones.numerar(mensaje));
+			System.out.println(code);
+			//Playfair
+			code = PlayFair.code((String)args[1], mensaje);
+			System.out.println(code);
+			//HillCipher
+			code = HillCipher.Encode(llave,mensaje);
+			System.out.println(code);
+			return code;
 		}
 		else if(index==2)
 		{
-			String mensaje= (String)args[2];
-			return HillCipher.Encode(llave, mensaje);
-//			return PlayFair.code((String)args[1], mensaje);
+			//HillCipher
+			String deco = HillCipher.Encode(llave, mensaje);
+			System.out.println(deco);
+			//Playfair
+			deco = PlayFair.code((String)args[1], mensaje);
+			System.out.println(deco);
+			//Caesar			
+			int key = Funciones.sumarKey(llave);
+			deco = Caesar.decode(key, Funciones.numerar(mensaje));
+			System.out.println(deco);
+			return deco;
 		}
 		else
 			return "null";
@@ -57,7 +73,7 @@ public class Crypto
 		int method = -1;
 		String k = "";
 		String mensaje="";
-		
+
 		for (String m : args)
 		{
 			if(kset == true)
@@ -68,12 +84,12 @@ public class Crypto
 			{
 				if (m.endsWith("."))
 				{
-				kset=true;
+					kset=true;
 				}
 				k+=m.substring(0,m.length()-1);
 				if(debug)
-				System.out.println("key="+k);
-				
+					System.out.println("key="+k);
+
 			}
 			if(methodset == false)
 			{
@@ -87,50 +103,50 @@ public class Crypto
 					e.printStackTrace();
 				}
 				if(debug)
-				System.out.println("method="+method);
+					System.out.println("method="+method);
 			}	
 		}
-				
+
 		System.out.print("Encriptando...k="+k);
 		System.out.println(" m="+mensaje);
-		
+
 		String coded = "";
 		String decoded = "";
-		
+
 		switch(method)
 		{
-			case 1:
-				coded = Caesar.code(k,mensaje);
-				System.out.print("Encriptado Caesar Cypher=");
-				System.out.println(coded);
-		
-				decoded = Caesar.decode(k,coded);
-				System.out.print("Desencriptado Caesar Cypher=");
-				System.out.println(decoded);
-				break;
-				
-			case 2:
-				coded = Vigenere.code(k,mensaje);
-				System.out.println("Encriptado Vigenere=");
-				System.out.println(coded);
-				
-				decoded = Vigenere.decode(k,coded);
-				System.out.println("Desencriptado Vigenere=");
-				System.out.println(decoded);
-				break;
-		
-			case 3:
-				coded = PlayFair.code(k,mensaje);
-				System.out.println("Encriptado PlayFair=");
-				System.out.println(coded);
-				
-				decoded = PlayFair.decode(k,coded);
-				System.out.println("Desencriptado PlayFair=");
-				System.out.println(decoded);
-				break;
-			case 4:
-				break;
-				
+		case 1:
+			coded = Caesar.code(k,mensaje);
+			System.out.print("Encriptado Caesar Cypher=");
+			System.out.println(coded);
+
+			decoded = Caesar.decode(k,coded);
+			System.out.print("Desencriptado Caesar Cypher=");
+			System.out.println(decoded);
+			break;
+
+		case 2:
+			coded = Vigenere.code(k,mensaje);
+			System.out.println("Encriptado Vigenere=");
+			System.out.println(coded);
+
+			decoded = Vigenere.decode(k,coded);
+			System.out.println("Desencriptado Vigenere=");
+			System.out.println(decoded);
+			break;
+
+		case 3:
+			coded = PlayFair.code(k,mensaje);
+			System.out.println("Encriptado PlayFair=");
+			System.out.println(coded);
+
+			decoded = PlayFair.decode(k,coded);
+			System.out.println("Desencriptado PlayFair=");
+			System.out.println(decoded);
+			break;
+		case 4:
+			break;
+
 		}
 	}
 }
