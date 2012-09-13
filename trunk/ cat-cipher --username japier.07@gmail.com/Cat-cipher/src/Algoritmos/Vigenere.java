@@ -13,16 +13,16 @@ public class Vigenere
 		int[] c = new int[m.length];
 		for(int i = 0; i < m.length; i++)
 		{
-		if(m[i]>=0)
-		{
-			c[i]=(m[i]+k[i%k.length])%26;
-		if(debug)
-		System.out.println(m[i]+"-"+c[i]);
-		}
-		else
-		{
-		c[i]=-1;//espacio
-		}
+			if(m[i]>=0)
+			{
+				c[i]=(m[i]+k[i%k.length])%26;
+				if(debug)
+					System.out.println(m[i]+"-"+c[i]);
+			}
+			else
+			{
+				c[i]=-1;//espacio
+			}
 		}
 		return Funciones.parse(c);
 	}
@@ -35,14 +35,14 @@ public class Vigenere
 		int[] d = new int[m.length];
 		for(int i = 0; i < m.length; i++)
 		{
-		if(m[i]>=0)
-		{
-			d[i]=(m[i]-k[i%k.length]+26)%26;
-		}
-		else
-		{
-		d[i] = -1;//espacio
-		}
+			if(m[i]>=0)
+			{
+				d[i]=(m[i]-k[i%k.length]+26)%26;
+			}
+			else
+			{
+				d[i] = -1;//espacio
+			}
 		}
 		return Funciones.parse(d);
 	}

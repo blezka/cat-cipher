@@ -9,7 +9,7 @@ public class Permitidos extends PlainDocument{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	private JTextField text;
+	//	private JTextField text;
 	public void insertString(int arg0, String arg1, AttributeSet arg2)
 	{
 		String ret="";
