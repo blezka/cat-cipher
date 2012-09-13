@@ -42,10 +42,12 @@ public class Crypto
 			String code = Caesar.decode(key, Funciones.numerar(mensaje));
 			System.out.println(code);
 			//Playfair
-			code = PlayFair.code((String)args[1], mensaje);
+			code = PlayFair.code((String)args[1], code);
+			System.out.println(code);
+			code = Vigenere.code((String)args[1], code);
 			System.out.println(code);
 			//HillCipher
-			code = HillCipher.Encode(llave,mensaje);
+			code = HillCipher.Encode(llave,code);
 			System.out.println(code);
 			return code;
 		}
@@ -54,12 +56,14 @@ public class Crypto
 			//HillCipher
 			String deco = HillCipher.Encode(llave, mensaje);
 			System.out.println(deco);
+			deco = Vigenere.decode((String)args[1], deco);
+			System.out.println(deco);
 			//Playfair
-			deco = PlayFair.code((String)args[1], mensaje);
+			deco = PlayFair.code((String)args[1], deco);
 			System.out.println(deco);
 			//Caesar			
 			int key = Funciones.sumarKey(llave);
-			deco = Caesar.decode(key, Funciones.numerar(mensaje));
+			deco = Caesar.decode(key, Funciones.numerar(deco));
 			System.out.println(deco);
 			return deco;
 		}
