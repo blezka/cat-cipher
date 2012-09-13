@@ -42,6 +42,7 @@ public class FramePrincipal implements ActionListener{
 		banner = new JLabel();
 		banner.setPreferredSize(new Dimension(395, 50));
 		banner.setBorder(BorderFactory.createLineBorder(Color.black));
+		banner.setIcon(new ImageIcon("imagenes/banner.png"));
 		
 		JLabel panelLlave = new JLabel();
 		panelLlave.setPreferredSize(new Dimension(390, 35));
