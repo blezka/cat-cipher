@@ -56,6 +56,10 @@ public class PlayFair
 		{
 			Point a = position(m[i],k);
 			Point b = position(m[i+1],k);
+			
+			if(a==null || b==null)
+			System.out.println(m[i]+"="+a+" "+b);
+			else
 			if(a.x == b.x)
 			{
 				m[i] = k[a.x][(a.y+1)%5];
@@ -137,6 +141,7 @@ public class PlayFair
 
 	private static Point position(int letra, int[][]k)
 	{
+		if(letra==9) letra=8;//J es I
 		for(int i = 0; i < k.length; i++)
 		{
 			for(int j=0; j < k[i].length; j++)
@@ -204,6 +209,7 @@ public class PlayFair
 							}
 							if (letraK == key[k][l])
 							{
+								if(debug)
 								System.out.println("Repeat "+letraK+" "+i+","+j+" "+k+","+l);
 								break repetidos;
 							}
@@ -215,6 +221,7 @@ public class PlayFair
 		}		
 
 		//print
+		if(debug)	
 		for(i = 0; i < key.length; i++) {for( j = 0; j < key[i].length; j++) System.out.print(key[i][j]+",");System.out.println();}
 
 		return key;

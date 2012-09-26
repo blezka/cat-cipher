@@ -133,8 +133,6 @@ public class FramePrincipal implements ActionListener{
 			{
 				textoEncript.setText(cp.encodecode(1, llaveText.getText(), textoDecript.getText()));
 			}
-
-			//System.out.println("Texto");
 		}
 	}
 }

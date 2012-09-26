@@ -45,12 +45,16 @@ public class Caesar{
 
 	private static int[] codeNum(int k, int[] m)
 	{
+		if (debug)
+		{
+			System.out.println("key="+k);
+		}
 		String mensaje= "";
 		for(int i = 0; i < m.length; i++)
 		{
 			if(m[i]>=0)
 			{
-				m[i] = (m[i]+k) % 26;
+				m[i] = Funciones.getModulo((m[i]+k));
 				mensaje+=m[i]+",";
 			}
 		}
@@ -60,12 +64,16 @@ public class Caesar{
 	}
 	private static int[] decodeNum(int k, int[] m)
 	{
+		if (debug)
+		{
+			System.out.println("key="+k);
+		}
 		String mensaje= "";
 		for(int i = 0; i < m.length; i++)
 		{
 			if(m[i]>=0)
 			{
-				m[i] = (m[i]-k+26) % 26;
+				m[i] = Funciones.getModulo((m[i]-k+26));
 				mensaje+=m[i]+",";
 			}
 		}
