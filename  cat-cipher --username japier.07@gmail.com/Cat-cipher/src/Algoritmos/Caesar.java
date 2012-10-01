@@ -1,4 +1,5 @@
 package Algoritmos;
+import Controller.Crypto;
 import Controller.Funciones;
 
 public class Caesar{
@@ -73,7 +74,7 @@ public class Caesar{
 		{
 			if(m[i]>=0)
 			{
-				m[i] = Funciones.getModulo((m[i]-k+26));
+				m[i] = Funciones.getModulo((m[i]-k+Crypto.AlfabetoNumber));
 				mensaje+=m[i]+",";
 			}
 		}

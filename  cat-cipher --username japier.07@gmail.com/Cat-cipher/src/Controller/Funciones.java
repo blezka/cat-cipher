@@ -50,6 +50,7 @@ public class Funciones {
 				if(i>((Crypto.AlfabetoNumber*j)*-1))
 				{
 					det = (Crypto.AlfabetoNumber*j)+i;
+					det = det%Crypto.AlfabetoNumber;
 					listo=true;
 				}
 			}

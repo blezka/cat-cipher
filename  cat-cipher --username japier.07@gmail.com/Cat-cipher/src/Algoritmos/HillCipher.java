@@ -4,7 +4,7 @@ import Controller.Crypto;
 import Controller.Funciones;
 
 public class HillCipher {
-	static boolean debug = true;
+	static boolean debug = false;
 
 	public static String code(int[] key, String mensaje)
 	{
@@ -63,6 +63,7 @@ public class HillCipher {
 			determinante=Funciones.getModulo(calcularDeterminante(keyMatrix));
 			//h = (h+1)%3;
 			h++;
+			if(debug)
 			print(keyMatrix);
 		}while(determinante==0||determinante%2==0||determinante%13==0||determinante%26==0||determinante<0);
 //		return keyMatrix;
