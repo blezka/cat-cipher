@@ -32,6 +32,7 @@ public class Crypto
 			String code = mensaje;
 			//Caesar
 			code = Caesar.decode(key, Funciones.numerar(mensaje));
+			code = new StringBuffer(code).reverse().toString();
 			if(debug)
 				System.out.println(code);
 			//Playfair
@@ -63,6 +64,7 @@ public class Crypto
 			if(debug)
 				System.out.println(deco);
 			//			//Caesar			
+			deco = new StringBuffer(deco).reverse().toString();
 			deco = Caesar.code(key, Funciones.numerar(deco));
 			if(debug)
 				System.out.println(deco);
