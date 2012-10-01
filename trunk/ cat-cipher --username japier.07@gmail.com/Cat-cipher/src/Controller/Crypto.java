@@ -36,7 +36,7 @@ public class Crypto
 			if(debug)
 				System.out.println(code);
 			//Playfair
-			code = PlayFair.decode((String)args[1], code);
+//			code = PlayFair.decode((String)args[1], code);
 			if(debug)
 				System.out.println(code);
 			//Vigenere
@@ -55,15 +55,15 @@ public class Crypto
 			int key = Funciones.sumarKey(llave);
 			//HillCipher			
 			deco = HillCipher.code(llave, deco);
-			//			//Vigenere
+			//Vigenere
 			deco = Vigenere.code((String)args[1], deco);
 			if(debug)
 				System.out.println(deco);
-			//			//Playfair
-			deco = PlayFair.code((String)args[1], deco);
+			//Playfair
+//			deco = PlayFair.code((String)args[1], deco);
 			if(debug)
 				System.out.println(deco);
-			//			//Caesar			
+			//Caesar			
 			deco = new StringBuffer(deco).reverse().toString();
 			deco = Caesar.code(key, Funciones.numerar(deco));
 			if(debug)
