@@ -4,13 +4,12 @@ import Controller.Crypto;
 import Controller.Funciones;
 
 public class HillCipher {
-	static boolean debug = false;
-	
-	static int[][] ejemplo = {{6,24,1},{13,16,10},{20,17,15}};
+	static boolean debug = true;
+
 	public static String code(int[] key, String mensaje)
 	{
 		int[][] keyMatrix = calcularKey(key);
-		return encode(ejemplo,mensaje);
+		return encode(keyMatrix,mensaje);
 	}
 	public static String encode(int[][] keyMatrix, String mensaje)
 	{
@@ -64,60 +63,80 @@ public class HillCipher {
 			determinante=Funciones.getModulo(calcularDeterminante(keyMatrix));
 			//h = (h+1)%3;
 			h++;
-		}while(determinante==0||determinante==2||determinante==13||determinante==26||determinante<0);
-		return keyMatrix;
+			print(keyMatrix);
+		}while(determinante==0||determinante%2==0||determinante%13==0||determinante%26==0||determinante<0);
+//		return keyMatrix;
+		return new int[][]{{1,2,3},{3,1,1},{4,2,1}};
 	}
 	public static String decode(int[] key, String mensaje)
 	{
-		
+
 		int[][] keyMatrix = new int[3][3];
-//		keyMatrix=calcularKey(key);
-		keyMatrix=ejemplo;
+		keyMatrix=calcularKey(key);
 		int x = findX(keyMatrix);
+		if(debug)System.out.println("X="+x);
 		keyMatrix=getMatrixCofactores(keyMatrix);
+		if(debug)
+		{
+			System.out.println("Adjunta");	
+			print(keyMatrix);
+		}
 		keyMatrix=getTranspuesta(keyMatrix);
-		
+		if(debug)
+		{
+			System.out.println("Transpuesta");
+			print(keyMatrix);
+		}
+
+
 		for(int i = 0; i < keyMatrix.length; i++)
 			for(int j = 0; j < keyMatrix.length;j++)
 				keyMatrix[i][j]= Funciones.getModulo(keyMatrix[i][j]*x);
-		
+		if(debug)
+		{
+			System.out.println("Modulo (k*x)");
+			print(keyMatrix);
+		}
+
 		return encode(keyMatrix,mensaje);
+	}
+	private static void print(int[][] k)
+	{
+		for(int i = 0; i < k.length; i++)
+		{
+			for(int j=0; j < k[i].length; j++)
+			{
+				System.out.print(k[i][j]+",");
+			}
+			System.out.println();
+		}
+
 	}
 	private static int findX(int[][] key)
 	{
 		int det = Funciones.getModulo(calcularDeterminante(key));
-		for(int i = 0; i < Crypto.AlfabetoNumber;i++)
+		for(int i = 1; i < Crypto.AlfabetoNumber+1;i++)
 		{
 			double x = i*Crypto.AlfabetoNumber+1;
-			if(x%det==0)
+			x = x%det;
+			if(x==0)
+			{
 				return (i*Crypto.AlfabetoNumber+1)/det;
+			}
 		}
-		return -1;
+		return 1;
 	}
 	private static int[][] getTranspuesta(int[][] keyPrimaMatrix)
 	{
-//		for(int i=0; i<keyPrimaMatrix.length; i++)
-//			for(int j=0; j<keyPrimaMatrix.length; j++)
-//			{
-//				int aux=keyPrimaMatrix[i][j];
-//				keyPrimaMatrix[i][j]=keyPrimaMatrix[j][i];
-//				keyPrimaMatrix[j][i]=aux;
-//			}
-		int aux= keyPrimaMatrix[0][1];
-		keyPrimaMatrix[0][1]=keyPrimaMatrix[1][0];
-		keyPrimaMatrix[1][0]=aux;
-		
-		aux= keyPrimaMatrix[0][2];
-		keyPrimaMatrix[0][2]=keyPrimaMatrix[2][0];
-		keyPrimaMatrix[2][0]=aux;
-		
-		aux= keyPrimaMatrix[1][2];
-		keyPrimaMatrix[1][2]=keyPrimaMatrix[2][1];
-		keyPrimaMatrix[2][1]=aux;
-		
-		
-		
-		return keyPrimaMatrix;
+		int [][] prim = new int[keyPrimaMatrix.length][keyPrimaMatrix.length];
+		for(int i=0; i<keyPrimaMatrix.length; i++)
+			for(int j=0; j<keyPrimaMatrix.length; j++)
+			{
+				int aux=keyPrimaMatrix[i][j];
+				prim[i][j]=keyPrimaMatrix[j][i];
+				prim[j][i]=aux;
+			}
+		return prim;
 	}
 	private static int[][] getMatrixCofactores(int[][] keyMatrix)
 	{
@@ -130,8 +149,8 @@ public class HillCipher {
 			{
 				int[][] keyPrimaMatrix = new int[max-1][max-1];
 				for(int ip = 0; ip < max-1 ; ip++)
-						for(int jp=0; jp < max-1 ; jp++)
-							keyPrimaMatrix[ip][jp]=keyMatrix[ip>=i?(ip+1)%max:ip][jp>=j?(jp+1)%max:jp];
+					for(int jp=0; jp < max-1 ; jp++)
+						keyPrimaMatrix[ip][jp]=keyMatrix[ip>=i?(ip+1)%max:ip][jp>=j?(jp+1)%max:jp];
 				key[i][j] = signo*calcularDeterminante(keyPrimaMatrix);
 				signo*=-1;
 			}
@@ -155,27 +174,23 @@ public class HillCipher {
 			System.out.println();
 		return ret;
 	}
-	public static int calcularDeterminante(int[][] keyMatrix)
+	public static int calcularDeterminante(int[][] key)
 	{
 		int det=0;
-		int max = keyMatrix.length;
-			for(int i = 0; i <max-1; i++)
-			{
-				int pos = 1;
-				int neg = 1;
-				for(int j=0; j < max; j++)
-				{
-					int x = j;
-					int y = (j+i)%max;
-					if(debug)
-					System.out.println("+"+pos+"*"+keyMatrix[x][y]);
-					pos *= keyMatrix[x][y];
-					if(debug)
-					System.out.println("-"+neg+"*"+keyMatrix[x][max-1-y]);
-					neg *= keyMatrix[x][max-1-y];
-				}
-				det += pos-neg;
+		int max = key.length;
+		int signo = 1;
+		if(max == 2)
+		{
+			det = key[0][0]*key[1][1]-key[0][1]*key[1][0];
 		}
+		if(max == 3)
+		{
+			det += key[0][0]*(key[1][1]*key[2][2]-key[1][2]*key[2][1]);
+			det -= key[0][1]*(key[1][0]*key[2][2]-key[1][2]*key[2][0]);
+			det += key[0][2]*(key[1][0]*key[2][1]-key[1][1]*key[2][0]);
+		}
+
+		//		det= det%Crypto.AlfabetoNumber;
 		if(debug)
 			System.out.println("determinante = "+det);
 		return det;

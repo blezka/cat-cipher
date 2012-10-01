@@ -5,7 +5,7 @@ import Controller.Funciones;
 
 public class PlayFair
 {
-	static boolean debug = true;
+	static boolean debug = false;
 
 	public static String code(String k, String m)
 	{
