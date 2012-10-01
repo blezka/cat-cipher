@@ -111,6 +111,8 @@ public class PlayFair
 		{
 			Point a = position(m[i],k);
 			Point b = position(m[i+1],k);
+			if(a==null)System.out.println(m[i]+" "+a);
+			if(b==null)System.out.println(m[i+1]+" "+b);
 			if(a.x == b.x)
 			{
 				m[i] = k[a.x][(a.y+4)%5];
