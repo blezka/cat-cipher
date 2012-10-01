@@ -1,16 +1,15 @@
 package Algoritmos;
 import java.awt.Point;
 
+import Controller.Crypto;
 import Controller.Funciones;
 
 public class PlayFair
 {
-	static boolean debug = false;
+	static boolean debug = true;
 
 	public static String code(String k, String m)
 	{
-		k = k.replace("i","j");
-		m = m.replace("i","j");
 		return code(k,Funciones.numerar(m));
 	}
 	private static String code(String k, int[]m)
@@ -21,8 +20,6 @@ public class PlayFair
 	}
 	public static String decode(String k, String m)
 	{
-		k = k.replace("j","i");
-		m = m.replace("j","i");
 		return decode(k,Funciones.numerar(m));
 	}
 	private static String decode(String k, int[]m)
@@ -143,7 +140,6 @@ public class PlayFair
 
 	private static Point position(int letra, int[][]k)
 	{
-		if(letra==9) letra=8;//J es I
 		for(int i = 0; i < k.length; i++)
 		{
 			for(int j=0; j < k[i].length; j++)
@@ -159,7 +155,7 @@ public class PlayFair
 
 	private static int[][] getKeyMatrix(String keyString)
 	{
-		int[][] key = new int[5][5];
+		int[][] key = new int[6][5];
 		int[] knum = Funciones.numerar(keyString);
 		int letra = 0;
 		int letraknum = 0;
@@ -193,11 +189,9 @@ public class PlayFair
 					letraK = letra;
 					letra++;
 				}
-				if(letraK==9)//I digivolts a J
+				
+				if(letra<Crypto.AlfabetoNumber)
 				{
-					letraK = 8;
-				}
-
 				repetidos:
 					for(int k = 0; k < key.length; k++)
 					{
@@ -217,6 +211,12 @@ public class PlayFair
 							}
 						}
 					}
+				}
+				else
+				{
+					key[i][j]=0;
+					j++;
+				}
 			}
 			j=0;
 			i++;
