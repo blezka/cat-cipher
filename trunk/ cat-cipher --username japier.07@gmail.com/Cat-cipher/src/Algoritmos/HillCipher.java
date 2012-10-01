@@ -4,18 +4,20 @@ import Controller.Crypto;
 import Controller.Funciones;
 
 public class HillCipher {
-	static boolean debug = true;
+	static boolean debug = false;
 	
+	static int[][] ejemplo = {{6,24,1},{13,16,10},{20,17,15}};
 	public static String code(int[] key, String mensaje)
 	{
 		int[][] keyMatrix = calcularKey(key);
-		return encode(keyMatrix,mensaje);
+		return encode(ejemplo,mensaje);
 	}
 	public static String encode(int[][] keyMatrix, String mensaje)
 	{
 		int i=0,j=0;
 
 		int tama = (mensaje.length())%3;
+		tama = ((tama==0)?3:tama);
 		for(i=tama; i<3; i++)
 		{
 			mensaje+="x";
@@ -67,8 +69,10 @@ public class HillCipher {
 	}
 	public static String decode(int[] key, String mensaje)
 	{
+		
 		int[][] keyMatrix = new int[3][3];
-		keyMatrix=calcularKey(key);	
+//		keyMatrix=calcularKey(key);
+		keyMatrix=ejemplo;
 		int x = findX(keyMatrix);
 		keyMatrix=getMatrixCofactores(keyMatrix);
 		keyMatrix=getTranspuesta(keyMatrix);
@@ -92,13 +96,27 @@ public class HillCipher {
 	}
 	private static int[][] getTranspuesta(int[][] keyPrimaMatrix)
 	{
-		for(int i=0; i<keyPrimaMatrix.length; i++)
-			for(int j=0; j<keyPrimaMatrix.length; j++)
-			{
-				int aux=keyPrimaMatrix[i][j];
-				keyPrimaMatrix[i][j]=keyPrimaMatrix[j][i];
-				keyPrimaMatrix[j][i]=aux;
-			}
+//		for(int i=0; i<keyPrimaMatrix.length; i++)
+//			for(int j=0; j<keyPrimaMatrix.length; j++)
+//			{
+//				int aux=keyPrimaMatrix[i][j];
+//				keyPrimaMatrix[i][j]=keyPrimaMatrix[j][i];
+//				keyPrimaMatrix[j][i]=aux;
+//			}
+		int aux= keyPrimaMatrix[0][1];
+		keyPrimaMatrix[0][1]=keyPrimaMatrix[1][0];
+		keyPrimaMatrix[1][0]=aux;
+		
+		aux= keyPrimaMatrix[0][2];
+		keyPrimaMatrix[0][2]=keyPrimaMatrix[2][0];
+		keyPrimaMatrix[2][0]=aux;
+		
+		aux= keyPrimaMatrix[1][2];
+		keyPrimaMatrix[1][2]=keyPrimaMatrix[2][1];
+		keyPrimaMatrix[2][1]=aux;
+		
+		
+		
 		return keyPrimaMatrix;
 	}
 	private static int[][] getMatrixCofactores(int[][] keyMatrix)
