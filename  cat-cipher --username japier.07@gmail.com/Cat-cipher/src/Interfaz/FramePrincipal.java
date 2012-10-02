@@ -3,6 +3,7 @@ package Interfaz;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +30,7 @@ public class FramePrincipal implements ActionListener{
 		frame = new JFrame("Cat-Cipher 1.0");
 		frame.setSize(new Dimension(400, 350));
 		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icon.png"));
 
 		banner = new JLabel();
 		banner.setPreferredSize(new Dimension(395, 50));
